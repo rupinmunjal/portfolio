@@ -1,6 +1,7 @@
 import type {Metadata} from "next";
 import {Ovo, Outfit} from "next/font/google";
 import {Analytics} from "@vercel/analytics/next";
+import {SpeedInsights} from "@vercel/speed-insights/next";
 import {Navbar} from "@/components/Navbar";
 import {portfolioData} from "@/data/portfolio";
 import "./globals.css";
@@ -35,6 +36,7 @@ export default function RootLayout({
         <Navbar />
         <main className="w-full">{children}</main>
         <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
