@@ -1,5 +1,6 @@
 import type {Metadata} from "next";
 import {Ovo, Outfit} from "next/font/google";
+import {Analytics} from "@vercel/analytics/next";
 import {Navbar} from "@/components/Navbar";
 import {portfolioData} from "@/data/portfolio";
 import "./globals.css";
@@ -33,6 +34,7 @@ export default function RootLayout({
       <body className="min-h-screen w-full bg-background text-foreground antialiased">
         <Navbar />
         <main className="w-full">{children}</main>
+        <Analytics />
       </body>
     </html>
   );
