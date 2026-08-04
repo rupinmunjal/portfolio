@@ -1,5 +1,8 @@
-import {ReactNode} from "react";
+"use client";
+
+import {MotionConfig} from "motion/react";
+import type {ReactNode} from "react";
 
 export function Providers({children}: {children: ReactNode}) {
-  return <>{children}</>;
+  return <MotionConfig reducedMotion="user">{children}</MotionConfig>;
 }

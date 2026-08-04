@@ -13,20 +13,13 @@ function InfoCard({icon: Icon, title, subtitle, delay}: {icon: React.ElementType
       whileInView={{opacity: 1, y: 0}}
       viewport={{once: true}}
       transition={{duration: 0.45, ease: EASE, delay}}
-      className="glass-card group relative overflow-hidden rounded-[2rem] border border-[#e8e8e8] bg-white p-7 sm:p-8 shadow-[0_18px_40px_rgba(0,0,0,0.05)]"
+      className="card-elevated group relative overflow-hidden rounded-[2rem] p-7 sm:p-8"
     >
-      {/* Subtle top accent gradient bar */}
-      <div className="absolute left-4 right-4 top-0 h-[2px] rounded-full bg-gradient-to-r from-transparent via-[#d0d0d0] to-transparent opacity-40 transition-opacity duration-500 group-hover:opacity-90" />
-
-      {/* Decorative blobs */}
-      <div className="pointer-events-none absolute -right-6 -top-6 h-28 w-28 rounded-full bg-[#e8e8e8] blur-2xl opacity-50 transition-opacity duration-500 group-hover:opacity-80" />
-      <div className="pointer-events-none absolute -left-4 -bottom-4 h-20 w-20 rounded-full bg-[#eeeeee] blur-xl opacity-40" />
-
       {/* Icon — outlined circle, lighter treatment */}
       <motion.div
         whileHover={{scale: 1.06, borderColor: "#c0c0c0"}}
         transition={{type: "spring", stiffness: 300, damping: 15}}
-        className="mb-5 flex h-10 w-10 items-center justify-center rounded-full border border-[#d5d5d5] bg-[#fafafa] text-[#777777] shadow-[0_4px_12px_rgba(0,0,0,0.03)]"
+        className="mb-5 flex h-10 w-10 items-center justify-center rounded-full border border-[#d5d5d5] bg-[#fafafa] text-[#777777]"
       >
         <Icon className="h-4 w-4" />
       </motion.div>
@@ -70,9 +63,11 @@ export function About() {
               border-2 border-[#e8e8e8] shadow-[0_0_40px_rgba(0,0,0,0.06)]">
               <Image
                 src="/assets/images/user-image.jpeg"
-                alt={`${portfolioData.name} profile`}
-                width={224}
-                height={224}
+                alt={`Portrait of ${portfolioData.name} ${portfolioData.lastName}`}
+                width={400}
+                height={400}
+                priority
+                sizes="(min-width: 640px) 224px, 192px"
                 className="object-cover w-full h-full"
               />
             </div>
@@ -90,20 +85,22 @@ export function About() {
               {portfolioData.about}
             </motion.p>
 
-              {/* Education, Projects, and Volunteering - placed under the bio text */}
-              <div className="mt-14 grid grid-cols-1 md:grid-cols-3 gap-8">
-                <InfoCard
-                  icon={Award}
-                  title="Education"
-                  subtitle={`${portfolioData.education.program} at ${portfolioData.education.school}`}
-                  delay={0.2}
-                />
+              {/* Info cards — asymmetric layout: 2 + 1 spanning full width */}
+              <div className="mt-14 grid grid-cols-1 md:grid-cols-2 gap-6">
                 <InfoCard
                   icon={Code}
                   title="Projects"
                   subtitle={"Built 5+ projects"}
+                  delay={0.2}
+                />
+                <InfoCard
+                  icon={Award}
+                  title="Education"
+                  subtitle={`${portfolioData.education.program} at ${portfolioData.education.school}`}
                   delay={0.3}
                 />
+              </div>
+              <div className="mt-6">
                 <InfoCard
                   icon={Heart}
                   title="Volunteering"

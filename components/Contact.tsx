@@ -34,15 +34,15 @@ export function Contact() {
         </motion.div>
 
         <div className="flex w-full flex-col items-stretch justify-center gap-4 sm:flex-row sm:flex-wrap sm:gap-5">
-          <SolidButton href={`mailto:${portfolioData.email}`} className="px-8 py-4 border border-gray-400 text-lg">
+          <SolidButton href={`mailto:${portfolioData.email}`} className="px-8 py-4 border border-gray-400 text-lg focus-ring-rounded">
             <Mail className="h-5 w-5 shrink-0" />
             Email
           </SolidButton>
-          <SolidButton href={portfolioData.socials.github} className="px-8 py-4 border border-gray-400 text-lg">
+          <SolidButton href={portfolioData.socials.github} className="px-8 py-4 border border-gray-400 text-lg focus-ring-rounded">
             <GithubIcon className="h-5 w-5 shrink-0" />
             GitHub
           </SolidButton>
-          <SolidButton href={portfolioData.socials.linkedin} className="px-8 py-4 border border-gray-400 text-lg">
+          <SolidButton href={portfolioData.socials.linkedin} className="px-8 py-4 border border-gray-400 text-lg focus-ring-rounded">
             <LinkedInIcon className="h-5 w-5 shrink-0" />
             LinkedIn
           </SolidButton>

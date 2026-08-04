@@ -32,6 +32,7 @@ export function Navbar() {
   return (
     <>
       <motion.nav
+        aria-label="Primary navigation"
         initial={{y: -100, opacity: 0}}
         animate={{y: 0, opacity: 1}}
         transition={{type: "spring", stiffness: 80, damping: 18, delay: 0.1}}
@@ -54,27 +55,31 @@ export function Navbar() {
           <div className="flex items-center justify-between h-16">
 
             {/* Logo */}
-            <motion.div
+            <motion.button
+              type="button"
               initial={{opacity: 0, x: -20}}
               animate={{opacity: 1, x: 0}}
               transition={{delay: 0.25, duration: 0.5, ease: [0.22, 1, 0.36, 1]}}
-              className="text-xl font-bold font-ovo gradient-text cursor-pointer select-none pl-2"
+              className="text-xl font-bold font-ovo text-[#1a1a1a] cursor-pointer select-none px-2 rounded-full"
               onClick={() => scrollToSection("hero")}
+              aria-label="Scroll to top"
             >
               {portfolioData.name}
-            </motion.div>
+            </motion.button>
 
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center gap-7">
               {navLinks.map((link, i) => (
                 <motion.button
+                  type="button"
                   key={link.id}
                   initial={{opacity: 0, y: -10}}
                   animate={{opacity: 1, y: 0}}
                   transition={{delay: 0.35 + i * 0.06, duration: 0.45, ease: [0.22, 1, 0.36, 1]}}
                   onClick={() => scrollToSection(link.id)}
+                  aria-label={`Go to ${link.label} section`}
                   className="nav-link-wrap font-ovo text-base font-medium text-[#555555] cursor-pointer
-                    hover:text-[#1a1a1a] transition-colors duration-300 py-1"
+                    hover:text-[#1a1a1a] transition-colors duration-300 py-1 focus-ring"
                 >
                   {link.label}
                   <span className="nav-link-underline" />
@@ -95,9 +100,12 @@ export function Navbar() {
             {/* Mobile Controls */}
             <div className="md:hidden flex items-center">
               <button
+                type="button"
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="p-2 rounded-lg hover:bg-[#f7f7f7] transition-colors cursor-pointer"
-                aria-label="Toggle menu"
+                className="p-2 rounded-lg hover:bg-[#f7f7f7] transition-colors cursor-pointer focus-ring"
+                aria-label={isMobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
+                aria-controls="mobile-navigation"
+                aria-expanded={isMobileMenuOpen}
               >
                 <AnimatePresence mode="wait" initial={false}>
                   {isMobileMenuOpen ? (
@@ -131,6 +139,7 @@ export function Navbar() {
         <AnimatePresence>
           {isMobileMenuOpen && (
             <motion.div
+              id="mobile-navigation"
               initial={{opacity: 0, maxHeight: 0}}
               animate={{opacity: 1, maxHeight: 500}}
               exit={{opacity: 0, maxHeight: 0}}
@@ -140,14 +149,16 @@ export function Navbar() {
               <div className="px-6 py-5 space-y-1">
                 {navLinks.map((link, i) => (
                   <motion.button
+                    type="button"
                     key={link.id}
                     initial={{opacity: 0, x: -16}}
                     animate={{opacity: 1, x: 0}}
                     transition={{delay: i * 0.06, duration: 0.4, ease: [0.22, 1, 0.36, 1]}}
                     onClick={() => scrollToSection(link.id)}
+                    aria-label={`Go to ${link.label} section`}
                     className="outfit-font block w-full text-left py-2.5 px-3 rounded-lg cursor-pointer
                       text-[#555555] hover:text-[#1a1a1a] hover:bg-[#f7f7f7]
-                      transition-all duration-300 active:bg-[#efefef]"
+                      transition-all duration-300 active:bg-[#efefef] focus-ring"
                   >
                     {link.label}
                   </motion.button>
