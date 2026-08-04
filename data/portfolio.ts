@@ -1,4 +1,52 @@
-export const portfolioData = {
+export interface Project {
+  id: number;
+  title: string;
+  description: string;
+  liveUrl: string | null;
+  githubUrl: string | null;
+  techStack?: string[];
+  category?: string;
+}
+
+export interface Experience {
+  id: number;
+  role: string;
+  company: string;
+  startDate: string;
+  endDate: string;
+  description: string[];
+}
+
+export interface Skill {
+  name: string;
+  category: string;
+}
+
+export interface PortfolioData {
+  name: string;
+  lastName: string;
+  title: string;
+  bio: string;
+  about: string;
+  email: string;
+  education: {
+    school: string;
+    program: string;
+  };
+  volunteering: {
+    role: string;
+    organization: string;
+  };
+  socials: {
+    github: string;
+    linkedin: string;
+  };
+  skills: Skill[];
+  projects: Project[];
+  experience: Experience[];
+}
+
+export const portfolioData: PortfolioData = {
   name: "Rupin",
   lastName: "Munjal",
   title: "software developer based in toronto",
@@ -73,6 +121,8 @@ export const portfolioData = {
       description: "Full-stack Spring Boot application for car dealership management.",
       liveUrl: null,
       githubUrl: "https://github.com/rupinmunjal/car-dealership",
+      techStack: ["Java", "Spring Boot", "MySQL"],
+      category: "Full-stack",
     },
     {
       id: 3,
@@ -87,6 +137,8 @@ export const portfolioData = {
       description: "ML web app predicting student career willingness using predictive analytics.",
       liveUrl: "https://student-career-willingness-predictor.streamlit.app/",
       githubUrl: "https://github.com/rupinmunjal/student-career-willingness-predictor",
+      techStack: ["Python", "Streamlit", "Machine Learning"],
+      category: "Machine learning",
     },
   ],
   experience: [

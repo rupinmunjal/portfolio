@@ -3,6 +3,7 @@
 import {motion} from "motion/react";
 import Image from "next/image";
 import {portfolioData} from "@/data/portfolio";
+import type {Project} from "@/data/portfolio";
 import {ProjectLinkButtons} from "@/components/ui/project-buttons";
 import {SolidButton} from "@/components/ui/buttons";
 import {EASE} from "@/data/constants";
@@ -11,7 +12,7 @@ function ProjectCard({
   project,
   index,
 }: {
-  project: (typeof portfolioData.projects)[0];
+  project: Project;
   index: number;
 }) {
   const hasLinks = project.githubUrl || project.liveUrl;
@@ -23,17 +24,18 @@ function ProjectCard({
       whileInView={{opacity: 1, y: 0}}
       viewport={{once: true}}
       transition={{duration: 0.6, delay: index * 0.1, ease: EASE}}
-      className={`project-card group relative overflow-hidden rounded-[1.4rem] bg-white ${hasLinks ? "cursor-pointer card-hover" : ""}`}
+      className={`project-card group relative overflow-hidden rounded-[1.4rem] bg-white shadow-[0_18px_40px_rgba(26,26,26,0.04)] transition-[transform,box-shadow] duration-500 ${hasLinks ? "cursor-pointer hover:translate-y-[-6px] hover:shadow-[0_24px_48px_rgba(26,26,26,0.06)]" : ""}`}
     >
       {/* Project image */}
       <div className="relative h-[20rem] w-full overflow-hidden sm:h-[21rem] lg:h-[22rem]">
         <Image
           src={imageSrc}
-          alt={project.title}
+          alt={`${project.title} project screenshot`}
           width={1200}
           height={900}
-          loading="eager"
-          className={`h-full w-full object-cover transition-transform duration-500 ${hasLinks ? "group-hover:scale-105" : ""}`}
+          loading="lazy"
+          sizes="(min-width: 1280px) 25vw, (min-width: 640px) 50vw, 100vw"
+          className={`h-full w-full object-cover transition-transform duration-500 ease-out ${hasLinks ? "group-hover:scale-105" : ""}`}
         />
       </div>
 
@@ -43,10 +45,29 @@ function ProjectCard({
           <div>
             <h3 className="font-semibold text-[#222222] text-base sm:text-[1.05rem] outfit-font">{project.title}</h3>
             <p className="text-[#555555] text-xs sm:text-sm outfit-font">{project.description}</p>
+            {project.techStack && project.techStack.length > 0 && (
+              <ul
+                aria-label={`${project.title} technologies`}
+                className="mt-2 flex flex-wrap gap-1.5"
+              >
+                {project.techStack.map((technology) => (
+                  <li
+                    key={technology}
+                    className="rounded-full border border-[#d9d9d9] bg-[#f7f7f7] px-2 py-0.5 text-[0.65rem] font-medium text-[#555555] outfit-font"
+                  >
+                    {technology}
+                  </li>
+                ))}
+              </ul>
+            )}
           </div>
 
           {/* Link buttons */}
-          <ProjectLinkButtons githubUrl={project.githubUrl} liveUrl={project.liveUrl} />
+          <ProjectLinkButtons
+            githubUrl={project.githubUrl}
+            liveUrl={project.liveUrl}
+            projectTitle={project.title}
+          />
         </div>
       </div>
     </motion.div>
